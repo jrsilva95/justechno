@@ -28,9 +28,11 @@
                     @yield('content')
                 </div>
             </div>
-            <div class="col-md-7 justify-content-center painel-lateral h-100">
-                <div class="painel-image-container">
-                    <img class="painel-lateral-img" src="{{asset('img/justitia.png')}}">
+            <div class="col-md-7 d-none d-md-block justify-content-center painel-lateral h-100">
+                <div class="vertical-center h-100">
+                    <div class="painel-image-container">
+                        <img class="painel-lateral-img" src="{{asset('img/justitia.png')}}">
+                    </div>
                 </div>
             </div>
         </div>
