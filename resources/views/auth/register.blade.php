@@ -67,11 +67,16 @@
         </div>
     </div>
     <div class="form-group row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
+            <a href="/" class="btn btn-light col">
+                Voltar
+            </a>
+        </div>
+        <div class="col-lg-6">
             <button type="submit" class="btn btn-primary col">
                 Solicitar Cadastro
             </button>
-        </div>        
+        </div>    
     </div>
 </form>
 @endsection

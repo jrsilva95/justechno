@@ -39,7 +39,7 @@ class AddUsersData extends Migration
     public function down()
     {
         Schema::table('users', function($table){
-            $table->dropColumn('social_name');
+            $table->dropColumn('social_name')->default('');
             $table->dropColumn('cpf');
             $table->dropColumn('rg');
             $table->dropColumn('date_emission');
