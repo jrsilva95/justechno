@@ -19,7 +19,7 @@ class AddUsersData extends Migration
             $table->char('rg',12);
             $table->date('date_emission')->nullable($value = true);
             $table->char('org_emitter',45);
-            $table->date('birth_day');
+            $table->date('birth_day')->useCurrent();
             $table->integer('role_id'); //Id Externo
             $table->char('ctps', 8);
             $table->char('ctps_serie', 5);
