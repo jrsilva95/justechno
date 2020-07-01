@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAddressCitiesTable extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateAddressCitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('address_cities', function (Blueprint $table) {
+        
+        Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('address_state_id');
+            $table->integer('state_id');
             $table->timestamps();
         });
         
@@ -30,18 +31,17 @@ class CreateAddressCitiesTable extends Migration
             
             $cityAux = $city->municipio;
             
-            $stateDB = DB::table('address_cities')->where('id', $cityAux->id)->first();
+            $stateDB = DB::table('cities')->where('id', $cityAux->id)->first();
             
             if(!$stateDB){
-                DB::table('address_cities')->insert(
+                DB::table('cities')->insert(
                     array('id' => $cityAux->id,
                           'name' => $cityAux->nome,
-                          'address_state_id' => $cityAux->microrregiao->mesorregiao->UF->id)
+                          'state_id' => $cityAux->microrregiao->mesorregiao->UF->id)
                 );
             }
             
         }
-        
     }
 
     /**
@@ -51,6 +51,6 @@ class CreateAddressCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('address_cities');
+        Schema::dropIfExists('cities');
     }
 }

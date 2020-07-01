@@ -402,11 +402,10 @@ class ComposerStaticInit5c39619b3a2e01ed3300c1366abfaa5e
 
     public static $classMap = array (
         'App\\Address' => __DIR__ . '/../..' . '/app/Address.php',
-        'App\\AddressCity' => __DIR__ . '/../..' . '/app/AddressCity.php',
-        'App\\AddressState' => __DIR__ . '/../..' . '/app/AddressState.php',
         'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
         'App\\Bank' => __DIR__ . '/../..' . '/app/Bank.php',
         'App\\Business' => __DIR__ . '/../..' . '/app/Business.php',
+        'App\\City' => __DIR__ . '/../..' . '/app/City.php',
         'App\\Client' => __DIR__ . '/../..' . '/app/Client.php',
         'App\\ClientType' => __DIR__ . '/../..' . '/app/ClientType.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
@@ -451,6 +450,7 @@ class ComposerStaticInit5c39619b3a2e01ed3300c1366abfaa5e
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\State' => __DIR__ . '/../..' . '/app/State.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',

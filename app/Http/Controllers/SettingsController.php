@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Business;
-use App\AddressState;
+use App\State;
 
 class SettingsController extends Controller
 {
@@ -23,7 +23,7 @@ class SettingsController extends Controller
     public function editBusiness(){
         
         $business = Business::find(auth()->user()->business->id);
-        $states = AddressState::all();
+        $states = State::all();
         
         return view('settings.business.edit')->with('business', $business)->with('states', $states);
     }
@@ -42,9 +42,19 @@ class SettingsController extends Controller
         $phone->ddd = $matches[1][0];
         $phone->number = preg_replace('/[^0-9]/', '', $matches[2][0]); //Mantem so os numeros
         
-        return $request;
+        $address->street = $request->input('street');
+        $address->number = $request->input('number');
+        $address->neighborhood = $request->input('neighborhood');
+        $address->city_id = $request->input('city_id');
+        $address->postal_code = preg_replace('/[^0-9]/', '', $request->input('cep'));
+        $address->latitude = $request->input('latitude');
+        $address->longitude = $request->input('longitude');
         
-        //return redirect('/settings');
+        $phone->save();
+        $address->save();
+        $business->save();
+        
+        return redirect('/settings');
     }
     
 }

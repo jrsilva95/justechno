@@ -15,7 +15,6 @@ class AlterAddressStateCity extends Migration
     {
         Schema::table('addresses', function (Blueprint $table) {
             $table->dropColumn(['uf', 'state', 'city']);
-            $table->renameColumn('city_id', 'address_city_id');
         });
             
     }

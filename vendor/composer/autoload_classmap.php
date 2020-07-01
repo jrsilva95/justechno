@@ -7,11 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Address' => $baseDir . '/app/Address.php',
-    'App\\AddressCity' => $baseDir . '/app/AddressCity.php',
-    'App\\AddressState' => $baseDir . '/app/AddressState.php',
     'App\\Admin' => $baseDir . '/app/Admin.php',
     'App\\Bank' => $baseDir . '/app/Bank.php',
     'App\\Business' => $baseDir . '/app/Business.php',
+    'App\\City' => $baseDir . '/app/City.php',
     'App\\Client' => $baseDir . '/app/Client.php',
     'App\\ClientType' => $baseDir . '/app/ClientType.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
@@ -56,6 +55,7 @@ return array(
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+    'App\\State' => $baseDir . '/app/State.php',
     'App\\User' => $baseDir . '/app/User.php',
     'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
     'AssertionError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',

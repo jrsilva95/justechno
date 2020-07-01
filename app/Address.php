@@ -16,7 +16,11 @@ class Address extends Model
     }
     
     public function getLine2(){
-        return $this->neighborhood . ', ' . $this->city . '/' . $this->uf;
+        return $this->neighborhood . ', ' . $this->city->name . '/' . $this->city->state->uf;
+    }
+    
+    public function city(){
+        return $this->belongsTo('App\City');
     }
     
 }

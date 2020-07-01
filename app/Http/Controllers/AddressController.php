@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\AddressState;
-use App\AddressCity;
+use App\State;
+use App\City;
 
 class AddressController extends Controller
 {
@@ -16,10 +16,10 @@ class AddressController extends Controller
         
     }
     
-    public function getCities(AddressState $state){
+    public function getCities(State $state){
         
         
-        $cities = AddressCity::where('address_state_id', $state->id)->get();;
+        $cities = City::where('state_id', $state->id)->get();;
         
         return $cities;
         
@@ -29,17 +29,23 @@ class AddressController extends Controller
         
         //Requisita dados das cidades e estados do brasil
         $client = new \GuzzleHttp\Client();
-        $response = $client->get('https://viacep.com.br/ws/'. $cep .'/json/');
+        $response = $client->get('https://www.cepaberto.com/api/v3/cep?cep='. $cep, [
+            'headers' => [
+                'Authorization' => 'Token token='. getenv('CEP_ABERTO_API_TOKEN')
+            ]
+        ]);
         
         $json = json_decode($response->getBody());
         
-        $city = AddressCity::find($json->ibge);
+        $city = City::find($json->cidade->ibge);
         
         return response()->json([
             'cep' => $cep,
             'street' => $json->logradouro,
             'neighborhood' => $json->bairro,
-            'city' => $city
+            'city' => $city,
+            'latitude' => $json->latitude,
+            'longitude' => $json->longitude
         ]);
         
     }

@@ -14,7 +14,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form action="/settings/business/store" method="post">
+                    <form id="form" action="/settings/business/store" method="post">
                         {{ csrf_field() }}
                             <input type="hidden" name="id" value="{{$business->id}}">
                             <div class="row">
@@ -74,20 +74,6 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div id='map' style='width: 100%; height: 150px; margin-top: 10px'></div>
-                                <script>
-                                    mapboxgl.accessToken = 'pk.eyJ1Ijoic2lnbWF0ZWNub2xvZ2lhIiwiYSI6ImNrYW4ydzJibzFjaHYyeWxibTV4OGZldm4ifQ.wTJ_zvYqdVHFhmhVdjr7XA';
-                                    var map = new mapboxgl.Map({
-                                        container: 'map',
-                                        style: 'mapbox://styles/mapbox/streets-v11',
-                                        center: [{{$business->address->longitude}}, {{$business->address->latitude}}],
-                                        zoom: 14
-                                    });
-
-                                    new mapboxgl.Marker()
-                                        .setLngLat([{{$business->address->longitude}}, {{$business->address->latitude}}])
-                                        .addTo(map);
-
-                                </script>
                             </div>
                             
                         </div>
@@ -114,7 +100,8 @@
                         pattern: /[0-9]/,
                         optional: true
                     }
-                }
+                },
+                onChange: updateMap
             });
             $('input[name="longitude"]').mask('Z99.99AAAAAA', {
                 translation: {
@@ -126,7 +113,8 @@
                         pattern: /[0-9]/,
                         optional: true
                     }
-                }
+                },
+                onChange: updateMap
             });
 
             var SPMaskBehavior = function (val) {
@@ -151,12 +139,13 @@
                         
                         $('input[name="street"]').val(results.street);
                         $('input[name="neighborhood"]').val(results.neighborhood);
+                        $('input[name="latitude"]').val(results.latitude);
+                        $('input[name="longitude"]').val(results.longitude);
                         
-                        select_state.setValue(results.city.address_state_id);
+                        setStateAndCity(results.city.state_id.toString(), results.city.id.toString());
                         
-                        drawSelectCities(results.city.address_state_id.toString(), results.city.id.toString());
+                        updateMap();
                         
-                        console.log(results);
                     },
                     error: function(results) {
                         console.error(results);
@@ -167,9 +156,6 @@
             $('input[name="cep"]').mask('00000-000', {onComplete: buscarCep});
         
         });
-            
-        //$('#select-state').selectize();
-            
         
         var xhr;
         var select_state, $select_state;
@@ -180,6 +166,11 @@
             labelField: 'name',
             searchField: ['name']
         });
+        
+        function setStateAndCity(state, city){
+            select_state.setValue(state);
+            drawSelectCities(state.toString(), city.toString());
+        }
         
         function drawSelectCities(state, city){
             if (!state.length) return;
@@ -193,11 +184,7 @@
                             select_city.enable();
                             callback(results);
                             
-                            console.log(city);
-                            
                             if(city){
-                                
-                                console.log(city);
                                 select_city.setValue(city);
                             }
                             
@@ -209,6 +196,28 @@
                 });
         }
         
+        function updateMap(){
+            
+            var latitude = Number($('input[name="latitude"]').val());
+            var longitude = Number($('input[name="longitude"]').val());
+            
+            marker.setLngLat([longitude, latitude]);
+            map.setCenter([longitude, latitude]);
+            
+        }
+        
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2lnbWF0ZWNub2xvZ2lhIiwiYSI6ImNrYW4ydzJibzFjaHYyeWxibTV4OGZldm4ifQ.wTJ_zvYqdVHFhmhVdjr7XA';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [{{$business->address->longitude}}, {{$business->address->latitude}}],
+            zoom: 14
+        });
+
+        var marker = new mapboxgl.Marker()
+            .setLngLat([{{$business->address->longitude}}, {{$business->address->latitude}}])
+            .addTo(map);
+
         $select_state = $('#select-state').selectize({
             onChange: drawSelectCities
         });
@@ -217,6 +226,19 @@
         select_state = $select_state[0].selectize;
 
         select_city.disable();
+        
+        setStateAndCity({{$business->address->city->state->id}}, {{$business->address->city->id}});
+        
+        $("#form").submit(function( event ) {
+            
+            var input = $("<input>")
+                .attr("type", "hidden")
+                .attr("name", "city_id").val(select_city.getValue());
+            
+            $('#form').append(input);
+            
+          //event.preventDefault();
+        });
 
     </script>
 @endsection
