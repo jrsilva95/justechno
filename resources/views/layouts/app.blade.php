@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/selectize.css') }}" rel="stylesheet">
+        
+        <!-- Map box -->
+        <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+        <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="{{ asset('js/jquery.mask.js') }}"></script>
+        <script src="{{ asset('js/selectize.js') }}"></script>
+    </head>
+    <body>
         <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
@@ -48,11 +55,12 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->employee->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
                                     <li>
+                                        <a>Perfil</a>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -70,11 +78,41 @@
                 </div>
             </div>
         </nav>
-
-        @yield('content')
-    </div>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-</body>
+        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <p>
+                        Área de Trabalho
+                    </p>
+                    <ul class="list-group">
+                      <a href="/clients" class="list-group-item">Clientes</a>
+                      <a href="/lawsuits" class="list-group-item">Processos</a>
+                      <a href="#" class="list-group-item">Agenda</a>
+                      <a href="#" class="list-group-item">Atendimentos</a>
+                      <a href="#" class="list-group-item">Biblioteca</a>
+                    </ul>
+                    <p>
+                        Escritório
+                    </p>
+                    <ul class="list-group">
+                      <a href="#" class="list-group-item">Almoxarifado</a>
+                      <a href="#" class="list-group-item">Financeiro</a>
+                      <a href="/employees" class="list-group-item">Funcionários</a>
+                    </ul>
+                    <p>
+                        Sistema
+                    </p>
+                    <ul class="list-group">
+                      <a href="/settings" class="list-group-item">Configurações</a>
+                    </ul>
+                </div>
+                <div class="col-lg-9">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}"></script>
+    </body>
 </html>

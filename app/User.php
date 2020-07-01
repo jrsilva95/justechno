@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','email', 'password', 'cpf', 'rg', '', 'org_emitter', 'birth_day', 'role_id', 'ctps', 'ctps_serie', 'pis', 'oab', 'date_admission'
+        'email', 'password'
     ];
 
     /**
@@ -25,12 +25,20 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'date_emission', 'date_admission', 'social_name', 'address_id', "status_id", 'password', 'remember_token',
+        'remember_token'
     ];
     
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
+    }
+    
+    public function employee(){
+        return $this->hasOne('App\Employee');
+    }
+    
+    public function business(){
+        return $this->employee->business();
     }
     
 }

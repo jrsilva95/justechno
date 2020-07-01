@@ -38,7 +38,7 @@
             </div>
             @if (Route::has('password.request'))
                 <a class="btn btn-link col" href="{{ route('password.request') }}">
-                    {{ __('Esqueçeu a senha?') }}
+                    {{ __('Esqueci a senha') }}
                 </a>
             @endif
         </div>
@@ -51,10 +51,12 @@
             </button>
         </div>
     </div>
+    <!--
     <div class="form-group row mb-0">
         <div class="col-md-12">
             <a type="button" class="btn btn-light col" href="/register">Solicitar Cadastro</a>
         </div>
     </div>
+    -->
     </form>
 @endsection
