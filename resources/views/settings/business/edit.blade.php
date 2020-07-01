@@ -78,7 +78,7 @@
                             
                         </div>
                             <div class="col-lg-12" style="margin-top: 10px">
-                                <a class="btn btn-secondary">Cancelar</a>
+                                <a class="btn btn-secondary" href="/settings">Cancelar</a>
                                 <button type="submit" class="btn btn-primary pull-right">Salvar</button>
                             </div>
                     </form>

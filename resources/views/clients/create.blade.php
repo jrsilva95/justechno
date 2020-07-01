@@ -15,108 +15,224 @@
                         </div>
                     @endif
                     {!! Form::open(['action' => 'ClientsController@store', 'method' => 'POST']) !!}
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            {{Form::label('client_type', 'Tipo Cliente')}}
-                            {{Form::select('client_type', $clientTypes, null, ['class' => 'form-control'])}}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{Form::label('public_agency', 'Orgão Público')}}
-                            {{Form::select('public_agency', ['Não', 'Sim'], null, ['class' => 'form-control'])}}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{Form::label('name', 'Nome')}}
-                            {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Nome Completo'])}}
-                        </div>
-                        <div class="form-group col-md-6">
-                            {{Form::label('social_name', 'Nome Social')}}
-                            {{Form::text('social_name', '', ['class' => 'form-control', 'placeholder' => 'Nome Social'])}}
-                        </div>
-                        <div class="form-group col-md-3">
-                            {{Form::label('birth_day', 'Data de Nascimento')}}
-                            {{Form::date('birth_day', '', ['class' => 'form-control'])}}
-                        </div>
-                        <div class="form-group col-md-3">
-                            {{Form::label('gender_id', 'Gênero')}}
-                            {{Form::select('gender_id', $genders, null,['class' => 'form-control'])}}
-                        </div>
-                        <div class="form-group col-md-3">
-                            {{Form::label('marital_status_id', 'Estado Civíl')}}
-                            {{Form::select('marital_status_id', $maritalStatuses, null, ['class' => 'form-control'])}}
-                        </div>
-                        <div class="form-group col-md-3">
-                            {{Form::label('cpf_cnpj', 'CPF')}}
-                            {{Form::text('cpf_cnpj', '', ['class' => 'form-control', 'placeholder' => 'CPF'])}}
-                        </div>
-                        <div class="form-group col-md-3">
-                            {{Form::label('rg', 'RG')}}
-                            {{Form::text('rg', '', ['class' => 'form-control', 'placeholder' => 'RG'])}}
-                        </div>
-                        <div class="form-group col-md-3">
-                            {{Form::label('date_emission', 'Data de Emissão')}}
-                            {{Form::date('date_emission', '', ['class' => 'form-control'])}}
-                        </div>
-                        <div class="form-group col-md-3">
-                            {{Form::label('org_emitter', 'Orgão Emissor')}}
-                            {{Form::text('org_emitter', '', ['class' => 'form-control', 'placeholder' => 'Orgão Emissor'])}}
-                        </div>
-                        <div class="form-group col-md-3">
-                            {{Form::label('titulo_eleitor', 'Título Eleitor')}}
-                            {{Form::text('titulo_eleitor', '', ['class' => 'form-control', 'placeholder' => 'Título Eleitor'])}}
-                        </div>
-                        <div class="form-group col-md-3">
-                            {{Form::label('ctps', 'CTPS')}}
-                            {{Form::text('ctps', '', ['class' => 'form-control', 'placeholder' => 'CTPS'])}}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{Form::label('ctps_serie', 'Serie')}}
-                            {{Form::text('ctps_serie', '', ['class' => 'form-control', 'placeholder' => 'Serie'])}}
-                        </div>
-                        <div class="form-group col-md-3">
-                            {{Form::label('pis', 'PIS')}}
-                            {{Form::text('pis', '', ['class' => 'form-control', 'placeholder' => 'PIS'])}}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{Form::label('nit', 'NIT')}}
-                            {{Form::text('nit', '', ['class' => 'form-control', 'placeholder' => 'NIT'])}}
-                        </div>
-                        <div class="form-group col-md-2">
-                            {{Form::label('nit', 'NIB')}}
-                            {{Form::text('nit', '', ['class' => 'form-control', 'placeholder' => 'NIB'])}}
-                        </div>
-                    </div>
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="btn btn-default" id="nav-home-tab" data-toggle="tab" href="#addresses" role="tab" aria-controls="nav-home" aria-selected="true">Endereços</a>
-                            <a class="btn btn-default" id="nav-profile-tab" data-toggle="tab" href="#contacts" role="tab" aria-controls="nav-profile" aria-selected="false">Contatos</a>
-                            <a class="btn btn-default" id="nav-contact-tab" data-toggle="tab" href="#bank-data" role="tab" aria-controls="nav-contact" aria-selected="false">Dados Bancários</a>
-                            <a class="btn btn-default" id="nav-contact-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-contact" aria-selected="false">Documentos</a>
-                            <!--
-                            <a class="btn btn-default" id="nav-contact-tab" data-toggle="tab" href="#finantial" role="tab" aria-controls="nav-contact" aria-selected="false">Financeiro</a>
-                            <a class="btn btn-default" id="nav-contact-tab" data-toggle="tab" href="#history" role="tab" aria-controls="nav-contact" aria-selected="false">Histórico</a>
-                            -->
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade active" id="addresses" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <div id="addresses-form">
-                                
+                    <form id="form" action="/clients" method="post">
+                        {{csrf_field()}}
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>Tipo Cliente</label>
+                                <select id="type_client">
+                                    @foreach ($clientTypes as $clientType)
+                                        <option value="{{$clientType->id}}">{{$clientType->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            {{Form::button('Adicionar Endereço', ['class' => 'btn btn-secondary'])}}
+                            <div class="col-lg-3">
+                                <label>Orgão Público</label>
+                                <select id="public_agency">
+                                        <option value="false">Não</option>
+                                        <option value="true">Sim</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <label id="label_cpf_cnpj">CPF</label>
+                                <input class="form-control" type="text" id="cpf_cnpj" name="cpf_cnpj">
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="nav-profile-tab">Contatos</div>
-                        <div class="tab-pane fade" id="bank-data" role="tabpanel" aria-labelledby="nav-contact-tab">Dados Bancarios</div>
-                        <div class="tab-pane fade" id="documents" role="tabpanel" aria-labelledby="nav-contact-tab">Documentos</div>
-                        <!--
-                        <div class="tab-pane fade" id="finantial" role="tabpanel" aria-labelledby="nav-contact-tab">Financeiro</div>
-                        <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="nav-contact-tab">Histórico</div>
-                        -->
-                    </div>
-                </div>
-            </div>
-                    {{Form::button('Cancelar'), ['class' => 'btn btn-secondary']}}
-                    {{Form::submit('Cadastrar', ['class' => 'btn btn-primary pull-right'])}}
-                    {!! Form::close() !!}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label id="label_name">Nome</label>
+                                <input class="form-control" type="text" id="name" name="name">
+                            </div>
+                            <div class="col-lg-6">
+                                <label id="label_social_name">Nome Social</label>
+                                <input class="form-control" type="text" id="social_name" name="social_name">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label id="label_birth_day">Data de Nascimento</label>
+                                <input class="form-control" type="text" id="birth_day" name="birth_day">
+                            </div>
+                            <div class="col-lg-3" id="box_gender">
+                                <label>Gênero</label>
+                                <select id="gender">
+                                    @foreach ($genders as $gender)
+                                        <option value="{{$gender->id}}">{{$gender->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-3" id="box_marital_status">
+                                <label>Estado Civíl</label>
+                                <select id="marital_status">
+                                    @foreach ($maritalStatuses as $maritalStatus)
+                                        <option value="{{$maritalStatus->id}}">{{$maritalStatus->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-3" id="box_titulo_eleitor">
+                                <label>Titulo de Eleitor</label>
+                                <input class="form-control" type="text" id="titulo_eleitor" name="titulo_eleitor">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3" id="box_rg">
+                                <label>RG</label>
+                                <input class="form-control" type="text" id="rg" name="rg">
+                            </div>
+                            <div class="col-lg-3" id="box_date_emission">
+                                <label>Data de Emissão</label>
+                                <input class="form-control" type="text" id="date_emission" name="date_emission">
+                            </div>
+                            <div class="col-lg-3" id="box_org_emitter">
+                                <label>Orgão Emissor</label>
+                                <input class="form-control" type="text" id="org_emitter" name="org_emitter">
+                            </div>
+                            <div class="col-lg-3" id="box_nib">
+                                <label>NIB</label>
+                                <input class="form-control" type="text" id="nib" name="nib">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3" id="box_ctps">
+                                <label>CTPS</label>
+                                <input class="form-control" type="text" id="ctps" name="ctps">
+                            </div>
+                            <div class="col-lg-3" id="box_ctps_serie">
+                                <label>Série</label>
+                                <input class="form-control" type="text" id="ctps_serie" name="ctps_serie">
+                            </div>
+                            <div class="col-lg-3" id="box_pis">
+                                <label>PIS</label>
+                                <input class="form-control" type="text" id="pis" name="pis">
+                            </div>
+                            <div class="col-lg-3" id="box_nit">
+                                <label>NIT</label>
+                                <input class="form-control" type="text" id="nit" name="nit">
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-lg-12" style="margin-top: 10px">
+                                <a class="btn btn-secondary" href="/clients">Cancelar</a>
+                                <button type="submit" class="btn btn-primary pull-right">Adicionar Cliente</button>
+                            </div>
+                            
+                        </div>
+                    </form>
         </div>
     </div>
+    <script>
+        
+        $(document).ready(function($){
+            
+            function updateTypeClient(value){
+                //alert(value);
+                if(value == 1){
+                    updatePersonFisical();
+                } else if (value == 2){
+                    updatePersonJuridic();
+                } else {
+                    updatePersonOther();
+                }
+            }
+            
+            function getPersonJuridcInfo(){
+                
+                var cnpj = $('#cpf_cnpj').cleanVal();
+
+                $.ajax({
+                    url: '/cnpj/' + cnpj,
+                    success: function(results) {
+                        
+                        $('#name').val(results.name_fantasy);
+                        $('#social_name').val(results.name);
+                        $('#birth_day').val(results.opened_date);
+                        
+                    },
+                    error: function(results) {
+                        console.error(results);
+                    }
+                })
+                
+            }
+        
+            function updatePersonFisical(){
+
+                $('input[name="cpf_cnpj"]').mask('000.000.000-00');
+
+                $("#label_cpf_cnpj").text("CPF");
+                $("#label_name").text("Nome");
+                $("#label_social_name").text("Nome Social");
+                $("#label_birth_day").text("Data de Nascimento");
+
+                $("#box_nit").show();
+                $("#box_pis").show();
+                $("#box_ctps_serie").show();
+                $("#box_ctps").show();
+                $("#box_nib").show();
+                $("#box_org_emitter").show();
+                $("#box_date_emission").show();
+                $("#box_rg").show();
+                $("#box_titulo_eleitor").show();
+                $("#box_marital_status").show();
+                $("#box_gender").show();
+            }
+
+            function updatePersonJuridic(){
+
+                $('input[name="cpf_cnpj"]').mask('00.000.000/0000-00', {
+                    onComplete: getPersonJuridcInfo
+                });
+
+                $("#label_cpf_cnpj").text("CNPJ");
+                $("#label_name").text("Nome Fantasia");
+                $("#label_social_name").text("Razão Social");
+                $("#label_birth_day").text("Data de Abertura");
+
+                $("#box_nit").hide();
+                $("#box_pis").hide();
+                $("#box_ctps_serie").hide();
+                $("#box_ctps").hide();
+                $("#box_nib").hide();
+                $("#box_org_emitter").hide();
+                $("#box_date_emission").hide();
+                $("#box_rg").hide();
+                $("#box_titulo_eleitor").hide();
+                $("#box_marital_status").hide();
+                $("#box_gender").hide();
+            }
+
+            function updatePersonOther(){
+                $("#label_cpf_cnpj").text("CPF ou CPNJ");
+                $("#label_name").text("Nome");
+                $("#label_social_name").text("Nome Social");
+                $("#label_birth_day").text("Data de Nascimento");
+
+                $("#box_nit").show();
+                $("#box_pis").show();
+                $("#box_ctps_serie").show();
+                $("#box_ctps").show();
+                $("#box_nib").show();
+                $("#box_org_emitter").show();
+                $("#box_date_emission").show();
+                $("#box_rg").show();
+                $("#box_titulo_eleitor").show();
+                $("#box_marital_status").show();
+                $("#box_gender").show();
+            }
+
+            var select_type_client = $('#type_client').selectize({
+                onChange : updateTypeClient
+            });
+
+            $('#public_agency').selectize();
+            $('#gender').selectize();
+            $('#marital_status').selectize();
+
+            $('#birth_day').mask("00/00/0000", {placeholder: "__/__/____"});
+            $('#date_emission').mask("00/00/0000", {placeholder: "__/__/____"});
+
+            $('input[name="cpf_cnpj"]').mask('000.000.000-00');
+
+        });
+    </script>
 @endsection

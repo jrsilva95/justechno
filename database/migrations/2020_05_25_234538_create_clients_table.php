@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('social_name')->nullable($value = true);
-            $table->char('cpf_cnpj',11);
+            $table->char('cpf_cnpj',14);
             $table->char('rg',14)->nullable($value = true);
             $table->date('date_emission')->nullable($value = true);
             $table->char('org_emitter',45)->nullable($value = true);

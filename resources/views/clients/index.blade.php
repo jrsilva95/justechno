@@ -21,20 +21,16 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">E-mail</th>
-                                <th scope="col">CPF</th>
+                                <th class="col-lg-2">CPF/CNPJ</th>
+                                <th>Nome</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if(count($clients) > 0)
                                 @foreach($clients as $client)
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <td>{{$client->cpf_cnpj}}</td>
                                         <td>{{$client->name}}</td>
-                                        <td>{{$client->email}}</td>
-                                        <td>{{$client->cpf}}</td>
                                     </tr>
                                 @endforeach
                             @else

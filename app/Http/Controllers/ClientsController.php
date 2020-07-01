@@ -7,6 +7,7 @@ use App\Client;
 use App\Gender;
 use App\MaritalStatus;
 use App\ClientType;
+use DateTime;
 
 class ClientsController extends Controller
 {
@@ -28,9 +29,9 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        $genders = Gender::pluck('name', 'id');
-        $maritalStatuses = MaritalStatus::pluck('name', 'id');
-        $clientTypes = ClientType::pluck('name', 'id');
+        $genders = Gender::all();
+        $maritalStatuses = MaritalStatus::all();
+        $clientTypes = ClientType::all();
         return view('clients.create')
             ->with('genders', $genders)
             ->with('maritalStatuses', $maritalStatuses)
@@ -45,18 +46,23 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
+        
+        //return $request;
+        
         $this->validate($request, [
-            'cpf_cnpj' => 'required'
+            'cpf_cnpj' => 'required',
+            'name' => 'required',
+            
         ]);
         
         $client = new Client;
         $client->name = $request->input('name');
         $client->social_name = $request->input('social_name');
-        $client->cpf_cnpj = $request->input('cpf_cnpj');
+        $client->cpf_cnpj = preg_replace('/[^0-9]/', '', $request->input('cpf_cnpj'));
         $client->rg = $request->input('rg');
         $client->date_emission = $request->input('date_emission');
         $client->org_emitter = $request->input('org_emitter');
-        $client->birth_day = $request->input('birth_day');
+        $client->birth_day = DateTime::createFromFormat('d/m/Y', $request->input('birth_day'))->format('Y-m-d');
         $client->ctps = $request->input('ctps');
         $client->ctps_serie = $request->input('ctps_serie');
         $client->pis = $request->input('pis');
@@ -65,7 +71,7 @@ class ClientsController extends Controller
         $client->business_id = auth()->user()->employee->business_id;
         $client->save();
         
-        return redirect('/clients');
+        return redirect('/clients/' . $client->id);
     }
 
     /**

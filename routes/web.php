@@ -30,6 +30,9 @@ Route::get('/address/states', 'AddressController@getStates')->name('getStates');
 Route::get('/address/state/{state}/cities', 'AddressController@getCities')->name('getCities');
 Route::get('/address/cep/{cep}', 'AddressController@getAddressByCep')->name('getAddressByCep');
 
+//Api CPNJ
+Route::get('/cnpj/{cnpj}', 'CnpjController@getCnpjInfo')->name('getCnpjInfo');
+
 Route::resource('clients', 'ClientsController');
 
 Route::resource('employees', 'EmployeesController');
