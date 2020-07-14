@@ -61,7 +61,9 @@ class ClientsController extends Controller
         $client->social_name = $request->input('social_name');
         $client->cpf_cnpj = preg_replace('/[^0-9]/', '', $request->input('cpf_cnpj'));
         $client->rg = $request->input('rg');
-        $client->date_emission = DateTime::createFromFormat('d/m/Y', $request->input('date_emission'))->format('Y-m-d');
+        if(!empty($request->input('date_emission'))){
+            $client->date_emission = DateTime::createFromFormat('d/m/Y', $request->input('date_emission'))->format('Y-m-d');   
+        }
         $client->org_emitter = $request->input('org_emitter');
         $client->birth_day = DateTime::createFromFormat('d/m/Y', $request->input('birth_day'))->format('Y-m-d');
         $client->ctps = $request->input('ctps');
