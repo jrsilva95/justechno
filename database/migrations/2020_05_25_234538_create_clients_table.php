@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('social_name')->nullable($value = true);
-            $table->char('cpf_cnpj',14);
+            $table->char('cpf_cnpj',14)->unique();
             $table->char('rg',14)->nullable($value = true);
             $table->date('date_emission')->nullable($value = true);
             $table->char('org_emitter',45)->nullable($value = true);
@@ -30,10 +30,9 @@ class CreateClientsTable extends Migration
             $table->char('nib', 11)->nullable($value = true);
             $table->boolean('public_agency')->default(false);
             $table->integer('gender_id')->nullable($value = true);
-            $table->integer('address_id')->nullable($value = true);
             $table->integer('marital_status_id')->nullable($value = true);
             $table->integer('user_id')->nullable($value = true);
-            $table->integer('client_type_id')->nullable($value = true);
+            $table->integer('client_type_id');
             $table->integer('business_id');
             $table->timestamps();
         });

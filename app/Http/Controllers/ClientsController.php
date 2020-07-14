@@ -56,11 +56,12 @@ class ClientsController extends Controller
         ]);
         
         $client = new Client;
+        $client->client_type_id = $request->input('type_client');
         $client->name = $request->input('name');
         $client->social_name = $request->input('social_name');
         $client->cpf_cnpj = preg_replace('/[^0-9]/', '', $request->input('cpf_cnpj'));
         $client->rg = $request->input('rg');
-        $client->date_emission = $request->input('date_emission');
+        $client->date_emission = DateTime::createFromFormat('d/m/Y', $request->input('date_emission'))->format('Y-m-d');
         $client->org_emitter = $request->input('org_emitter');
         $client->birth_day = DateTime::createFromFormat('d/m/Y', $request->input('birth_day'))->format('Y-m-d');
         $client->ctps = $request->input('ctps');
@@ -68,6 +69,9 @@ class ClientsController extends Controller
         $client->pis = $request->input('pis');
         $client->titulo_eleitor = $request->input('titulo_eleitor');
         $client->nit = $request->input('nit');
+        $client->nib = $request->input('nib');
+        $client->gender_id = $request->input('gender');
+        $client->marital_status_id = $request->input('marital_status');
         $client->business_id = auth()->user()->employee->business_id;
         $client->save();
         
@@ -82,7 +86,10 @@ class ClientsController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $client = Client::find($id);
+        
+        return view('clients.show')->with('client', $client);
     }
 
     /**

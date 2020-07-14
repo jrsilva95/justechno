@@ -14,13 +14,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    {!! Form::open(['action' => 'ClientsController@store', 'method' => 'POST']) !!}
                     <form id="form" action="/clients" method="post">
                         {{csrf_field()}}
                         <div class="row">
                             <div class="col-lg-3">
                                 <label>Tipo Cliente</label>
-                                <select id="type_client">
+                                <select name="type_client" id="type_client">
                                     @foreach ($clientTypes as $clientType)
                                         <option value="{{$clientType->id}}">{{$clientType->name}}</option>
                                     @endforeach
@@ -55,7 +54,7 @@
                             </div>
                             <div class="col-lg-3" id="box_gender">
                                 <label>Gênero</label>
-                                <select id="gender">
+                                <select name="gender" id="gender">
                                     @foreach ($genders as $gender)
                                         <option value="{{$gender->id}}">{{$gender->name}}</option>
                                     @endforeach
@@ -63,7 +62,7 @@
                             </div>
                             <div class="col-lg-3" id="box_marital_status">
                                 <label>Estado Civíl</label>
-                                <select id="marital_status">
+                                <select name="marital_status" id="marital_status">
                                     @foreach ($maritalStatuses as $maritalStatus)
                                         <option value="{{$maritalStatus->id}}">{{$maritalStatus->name}}</option>
                                     @endforeach

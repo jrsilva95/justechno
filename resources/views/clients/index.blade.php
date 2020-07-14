@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    tr {
+        cursor:pointer
+    }
+</style>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -28,7 +33,7 @@
                         <tbody>
                             @if(count($clients) > 0)
                                 @foreach($clients as $client)
-                                    <tr>
+                                    <tr data-url="{{'/clients/'.$client->id}}">
                                         <td>{{$client->cpf_cnpj}}</td>
                                         <td>{{$client->name}}</td>
                                     </tr>
@@ -47,4 +52,12 @@
             </div>
         </div>
     </div>
+<script>
+$(document).ready(function(){
+    $('table tr').click(function(){
+        window.location = $(this).data('url');
+        returnfalse;
+    });
+});
+</script>
 @endsection

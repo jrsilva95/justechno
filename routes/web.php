@@ -29,6 +29,7 @@ Route::post('/settings/business/store', 'SettingsController@storeBusiness')->nam
 Route::get('/address/states', 'AddressController@getStates')->name('getStates');
 Route::get('/address/state/{state}/cities', 'AddressController@getCities')->name('getCities');
 Route::get('/address/cep/{cep}', 'AddressController@getAddressByCep')->name('getAddressByCep');
+Route::get('/address/city/{name}', 'AddressController@getCity')->name('getCity');
 
 //Api CPNJ
 Route::get('/cnpj/{cnpj}', 'CnpjController@getCnpjInfo')->name('getCnpjInfo');

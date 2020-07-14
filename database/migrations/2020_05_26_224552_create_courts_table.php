@@ -15,6 +15,8 @@ class CreateCourtsTable extends Migration
     {
         Schema::create('courts', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('vara');
+            $table->integer('city_id')->nullable();
             $table->timestamps();
         });
     }

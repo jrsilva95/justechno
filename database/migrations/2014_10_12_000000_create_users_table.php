@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert(
             array('id' => 2,
                   'email' => 'lourenna@lourennafernandes.adv.br',
-                  'password' => bcrypt('lourenna'))
+                  'password' => '$2y$10$SOYRNMFenQ4NYlwfIkNJB.6ijM/MMgjJLhNqBIdDHf223Odtoen0S') //senha que ela usou online
         );
     }
 

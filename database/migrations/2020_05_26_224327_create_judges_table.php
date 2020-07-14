@@ -15,6 +15,8 @@ class CreateJudgesTable extends Migration
     {
         Schema::create('judges', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('type');
             $table->timestamps();
         });
     }
