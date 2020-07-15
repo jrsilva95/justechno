@@ -74,6 +74,7 @@ class ClientsController extends Controller
         $client->nib = $request->input('nib');
         $client->gender_id = $request->input('gender');
         $client->marital_status_id = $request->input('marital_status');
+        $client->public_agency = $request->input('public_agency');
         $client->business_id = auth()->user()->employee->business_id;
         $client->save();
         
@@ -102,7 +103,15 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $genders = Gender::all();
+        $maritalStatuses = MaritalStatus::all();
+        $clientTypes = ClientType::all();
+        $client = Client::find($id);
+        return view('clients.edit')
+            ->with('genders', $genders)
+            ->with('maritalStatuses', $maritalStatuses)
+            ->with('clientTypes', $clientTypes)
+            ->with('client', $client);
     }
 
     /**

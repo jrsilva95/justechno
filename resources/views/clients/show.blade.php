@@ -7,7 +7,7 @@
                 <div class="panel-heading">
                     Cliente
                     <div class="pull-right">
-                        <a href="#" type="button" class="btn btn-primary btn-sm">Editar</a>
+                        <a href="/clients/{{$client->id}}/edit" type="button" class="btn btn-primary btn-sm">Editar</a>
                     </div>
                 </div>
 
@@ -17,93 +17,115 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    @if ($client->clientType->id = 2)
-                    <div class="row">
+                    @if ($client->clientType->id == 2)
+                        <div class="row">
                             <div class="col-lg-3">
                                 <label>Tipo Cliente</label>
                                 <p>{{$client->clientType->name}}</p>
                             </div>
                             <div class="col-lg-3">
                                 <label>Orgão Público</label>
-                                <p>{{$client->public_agencu}}</p>
+                                <p>{{$client->public_agency}}</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <label id="label_cpf_cnpj">CNPJ</label>
+                                <p>{{$client->cpf_cnpj}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <label id="label_name">Nome</label>
+                                <p>{{$client->name}}</p>
+                            </div>
+                            <div class="col-lg-5">
+                                <label id="label_social_name">Nome Social</label>
+                                <p>{{$client->social_name}}</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <label id="label_birth_day">Data de Abertura</label>
+                                <p>{{$client->birth_day}}</p>
+                            </div>
+                        </div>
+                    @else
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>Tipo Cliente</label>
+                                <p>{{$client->clientType->name}}</p>
+                            </div>
+                            <div class="col-lg-3">
+                                <label>Orgão Público</label>
+                                <p>{{$client->public_agency}}</p>
                             </div>
                             <div class="col-lg-6">
                                 <label id="label_cpf_cnpj">CPF</label>
-                                <input class="form-control" type="text" id="cpf_cnpj" name="cpf_cnpj">
+                                <p>{{$client->cpf_cnpj}}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <label id="label_name">Nome</label>
-                                <input class="form-control" type="text" id="name" name="name">
+                                <p>{{$client->name}}</p>
                             </div>
                             <div class="col-lg-6">
                                 <label id="label_social_name">Nome Social</label>
-                                <input class="form-control" type="text" id="social_name" name="social_name">
+                                <p>{{$client->social_name}}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-3">
                                 <label id="label_birth_day">Data de Nascimento</label>
-                                <input class="form-control" type="text" id="birth_day" name="birth_day">
+                                <p>{{$client->birth_day}}</p>
                             </div>
                             <div class="col-lg-3" id="box_gender">
                                 <label>Gênero</label>
-                                <p>{{$client->gender}}</p>
+                                <p>{{$client->gender->name}}</p>
                             </div>
                             <div class="col-lg-3" id="box_marital_status">
                                 <label>Estado Civíl</label>
-                                <p>{{$client->maritalStatus}}</p>
+                                <p>{{$client->maritalStatus->name}}</p>
                             </div>
                             <div class="col-lg-3" id="box_titulo_eleitor">
                                 <label>Titulo de Eleitor</label>
-                                <input class="form-control" type="text" id="titulo_eleitor" name="titulo_eleitor">
+                                <p>{{$client->titulo_eleitor}}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-3" id="box_rg">
                                 <label>RG</label>
-                                <input class="form-control" type="text" id="rg" name="rg">
+                                <p>{{$client->rg}}</p>
                             </div>
                             <div class="col-lg-3" id="box_date_emission">
                                 <label>Data de Emissão</label>
-                                <input class="form-control" type="text" id="date_emission" name="date_emission">
+                                <p>{{$client->date_emission}}</p>
                             </div>
                             <div class="col-lg-3" id="box_org_emitter">
                                 <label>Orgão Emissor</label>
-                                <input class="form-control" type="text" id="org_emitter" name="org_emitter">
+                                <p>{{$client->org_emitter}}</p>
                             </div>
                             <div class="col-lg-3" id="box_nib">
                                 <label>NIB</label>
-                                <input class="form-control" type="text" id="nib" name="nib">
+                                <p>{{$client->nib}}</p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-3" id="box_ctps">
                                 <label>CTPS</label>
-                                <input class="form-control" type="text" id="ctps" name="ctps">
+                                <p>{{$client->ctps}}</p>
                             </div>
                             <div class="col-lg-3" id="box_ctps_serie">
                                 <label>Série</label>
-                                <input class="form-control" type="text" id="ctps_serie" name="ctps_serie">
+                                <p>{{$client->ctps_serie}}</p>
                             </div>
                             <div class="col-lg-3" id="box_pis">
                                 <label>PIS</label>
-                                <input class="form-control" type="text" id="pis" name="pis">
+                                <p>{{$client->pis}}</p>
                             </div>
                             <div class="col-lg-3" id="box_nit">
                                 <label>NIT</label>
-                                <input class="form-control" type="text" id="nit" name="nit">
+                                <p>{{$client->nit}}</p>
                             </div>
                         </div>
                     @endif
-                        <div class="row">
-                        <div class="col-lg-12" style="margin-top: 10px">
-                                <a class="btn btn-secondary" href="/clients">Cancelar</a>
-                                <button type="submit" class="btn btn-primary pull-right">Adicionar Cliente</button>
-                            </div>
-                            
-                        </div>
                 </div>
             </div>
         </div>
@@ -118,11 +140,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    <p>Nenhum dado de contato cadastrado</p>
                 </div>
             </div>
         </div>
@@ -136,13 +154,8 @@
                         <a href="#" type="button" class="btn btn-primary btn-sm">Adicionar</a>
                     </div>
                 </div>
-
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    <p>Nenhum endereço cadastrado</p>
                 </div>
             </div>
         </div>
@@ -157,11 +170,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    <p>Nenhum dado bancário cadastrado</p>
                 </div>
             </div>
         </div>
@@ -176,11 +185,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    <p>Nenhum documento cadastrado</p>
                 </div>
             </div>
         </div>
@@ -195,11 +200,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    <p>Sem registors financeiros</p>
                 </div>
             </div>
         </div>

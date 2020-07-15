@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lawsuit;
+use App\LawsuitStatus;
+use App\LawsuitType;
+use App\Judge;
 
 class LawsuitsController extends Controller
 {
@@ -25,7 +28,14 @@ class LawsuitsController extends Controller
      */
     public function create()
     {
-        return view('lawsuits.create');
+        $lawsuitsSatuses = LawsuitStatus::all();
+        $lawsuitsTypes = LawsuitType::all();
+        $judges = Judge::all();
+        
+        return view('lawsuits.create')
+            ->with('lawsuitsSatuses', $lawsuitsSatuses)
+            ->with('lawsuitsTypes', $lawsuitsTypes)
+            ->with('judges', $judges);
     }
 
     /**

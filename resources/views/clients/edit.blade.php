@@ -34,27 +34,27 @@
                             </div>
                             <div class="col-lg-6">
                                 <label id="label_cpf_cnpj">CPF</label>
-                                <input class="form-control" type="text" id="cpf_cnpj" name="cpf_cnpj">
+                                <input class="form-control" type="text" id="cpf_cnpj" name="cpf_cnpj" value="{{$client->cpf_cnpj}}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <label id="label_name">Nome</label>
-                                <input class="form-control" type="text" id="name" name="name">
+                                <input class="form-control" type="text" id="name" name="name" value="{{$client->name}}">
                             </div>
                             <div class="col-lg-6">
                                 <label id="label_social_name">Nome Social</label>
-                                <input class="form-control" type="text" id="social_name" name="social_name">
+                                <input class="form-control" type="text" id="social_name" name="social_name" value="{{$client->social_name}}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-3">
                                 <label id="label_birth_day">Data de Nascimento</label>
-                                <input class="form-control" type="text" id="birth_day" name="birth_day">
+                                <input class="form-control" type="text" id="birth_day" name="birth_day" value="{{$client->birth_day}}">
                             </div>
                             <div class="col-lg-3" id="box_gender">
                                 <label>Gênero</label>
-                                <select name="gender" id="gender">
+                                <select name="gender" id="gender" value="{{$client->gender->id}}">
                                     @foreach ($genders as $gender)
                                         <option value="{{$gender->id}}">{{$gender->name}}</option>
                                     @endforeach
@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-lg-3" id="box_marital_status">
                                 <label>Estado Civíl</label>
-                                <select name="marital_status" id="marital_status">
+                                <select name="marital_status" id="marital_status" value="{{$client->maritalStatus->id}}">
                                     @foreach ($maritalStatuses as $maritalStatus)
                                         <option value="{{$maritalStatus->id}}">{{$maritalStatus->name}}</option>
                                     @endforeach
@@ -70,43 +70,43 @@
                             </div>
                             <div class="col-lg-3" id="box_titulo_eleitor">
                                 <label>Titulo de Eleitor</label>
-                                <input class="form-control" type="text" id="titulo_eleitor" name="titulo_eleitor">
+                                <input class="form-control" type="text" id="titulo_eleitor" name="titulo_eleitor" value="{{$client->titulo_eleitor}}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-3" id="box_rg">
                                 <label>RG</label>
-                                <input class="form-control" type="text" id="rg" name="rg">
+                                <input class="form-control" type="text" id="rg" name="rg" value="{{$client->rg}}">
                             </div>
                             <div class="col-lg-3" id="box_date_emission">
                                 <label>Data de Emissão</label>
-                                <input class="form-control" type="text" id="date_emission" name="date_emission">
+                                <input class="form-control" type="text" id="date_emission" name="date_emission" value="{{$client->date_emission}}">
                             </div>
                             <div class="col-lg-3" id="box_org_emitter">
                                 <label>Orgão Emissor</label>
-                                <input class="form-control" type="text" id="org_emitter" name="org_emitter">
+                                <input class="form-control" type="text" id="org_emitter" name="org_emitter" value="{{$client->org_emitter}}">
                             </div>
                             <div class="col-lg-3" id="box_nib">
                                 <label>NIB</label>
-                                <input class="form-control" type="text" id="nib" name="nib">
+                                <input class="form-control" type="text" id="nib" name="nib" value="{{$client->nib}}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-3" id="box_ctps">
                                 <label>CTPS</label>
-                                <input class="form-control" type="text" id="ctps" name="ctps">
+                                <input class="form-control" type="text" id="ctps" name="ctps" value="{{$client->ctps}}">
                             </div>
                             <div class="col-lg-3" id="box_ctps_serie">
                                 <label>Série</label>
-                                <input class="form-control" type="text" id="ctps_serie" name="ctps_serie">
+                                <input class="form-control" type="text" id="ctps_serie" name="ctps_serie" value="{{$client->ctps_serie}}">
                             </div>
                             <div class="col-lg-3" id="box_pis">
                                 <label>PIS</label>
-                                <input class="form-control" type="text" id="pis" name="pis">
+                                <input class="form-control" type="text" id="pis" name="pis" value="{{$client->pis}}">
                             </div>
                             <div class="col-lg-3" id="box_nit">
                                 <label>NIT</label>
-                                <input class="form-control" type="text" id="nit" name="nit">
+                                <input class="form-control" type="text" id="nit" name="nit" value="{{$client->nit}}">
                             </div>
                         </div>
                         <div class="row">
@@ -219,13 +219,19 @@
                 $("#box_gender").show();
             }
 
-            var select_type_client = $('#type_client').selectize({
+            var selectTypeClient = $('#type_client').selectize({
                 onChange : updateTypeClient
             });
+            selectTypeClient[0].selectize.setValue({{$client->clientType->id}}, false);
 
-            $('#public_agency').selectize();
-            $('#gender').selectize();
-            $('#marital_status').selectize();
+            var selectPublicAgency = $('#public_agency').selectize();
+            selectPublicAgency[0].selectize.setValue({{$client->public_agency}})
+            
+            var selectGender = $('#gender').selectize();
+            selectGender[0].selectize.setValue({{$client->gender->id}}, false);
+            
+            var selectMatiralStatus = $('#marital_status').selectize();
+            selectMatiralStatus[0].selectize.setValue({{$client->maritalStatus->id}}, false);
 
             $('#birth_day').mask("00/00/0000", {placeholder: "__/__/____"});
             $('#date_emission').mask("00/00/0000", {placeholder: "__/__/____"});
